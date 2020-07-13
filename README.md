@@ -1,2 +1,2 @@
-# createRepitchedSamples
- Generate pitch-shifted samples from an audio file, given a note range.
+# autorepitch
+ Generate pitch-shifted samples from audio file, given note range.

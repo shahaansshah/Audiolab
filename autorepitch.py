@@ -57,3 +57,18 @@ def run():  # the UI component
 
 # C:\Users\shaha\Music\Projects & Resources\C U Girl - Steve Lacy\C U Girl Short Loop.wav
 run()
+
+# *****NEXT STEPS*****
+# - I think it makes sense for noteid.py to be where it is,
+#   not restricted in the autorepitch directory. How do I
+#   deal with this in regards to the repository?
+#
+# - What should the autorepitch folder structure be? I'm thinking
+#   a package, with a... main/run esque file... inside it? Outside it?
+#   Is run() good where it is, in this file?
+#
+# - Should I even make it a package? There's just 1 function I want
+#   to be accessible from this directory.
+#
+# - What's the proper way I should be organizing the dependencies
+#   between these modules? Relevant if I make a separate main()/run()

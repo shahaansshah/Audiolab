@@ -1,2 +1,2 @@
-# autorepitch
- Generate pitch-shifted samples from audio file, given note range.
+# Audiolab
+ A space for various audio-related projects.

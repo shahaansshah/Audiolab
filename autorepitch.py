@@ -1,11 +1,11 @@
 import os
 import librosa as lbr
-
 from noteid import get_valid_name, get_valid_num
 
 
+# saves a pitch-shifted version of a sample for each not in the range given by lims
 def autorepitch(filepath, root, lims, short_name):
-    # ensures root, current and limit are all valid integers
+    # ensures 'note' arguments (root & lims) become valid integer representations
     root = get_valid_num(root)
     lims = [get_valid_num(lims[0]), get_valid_num(lims[1])]
     current, limit = min(lims), max(lims)
@@ -24,11 +24,12 @@ def autorepitch(filepath, root, lims, short_name):
     print('Pitch-shift from '+
           get_valid_name(min(lims))+'('+str((min(lims)))+')'+' to ' +
           get_valid_name(max(lims))+'('+str((max(lims)))+')' +
-          ' stored in '+filepath+'.')
+          ' stored in '+filepath)
     return None
 
 
-def new_repitch_directory(filepath):    # creates and returns a new directory for the repitch files
+# creates and returns a new directory for the repitch files
+def new_repitch_directory(filepath):
     head, tail = os.path.split(filepath)
     tail = tail.split('.')[0]+' Samples'
     filepath = os.path.join(head, tail)
@@ -39,36 +40,24 @@ def new_repitch_directory(filepath):    # creates and returns a new directory fo
     return filepath
 
 
+# generates a filepath with note number, name & custom short_name to save pitch-shifted sample under
 def get_repitched_name(filepath, current, short_name):
     label = str(current)+'_'+get_valid_name(current)+'_'+short_name+'.wav'
     full_name = os.path.join(filepath, label)
     return full_name
 
 
-def run():  # the UI component
-    filename = input('Enter filepath: ')
-    root = input('Enter root note of sample: ')
-    lim1 = input('Enter the first limit of your desired pitch-shift range: ')
-    lim2 = input('Enter the second limit of your desired pitch-shift range: ')
-    short_name = input('Enter a short name for the pitch-shifted samples to be saved under: ')
-    autorepitch(filename, root, [lim1, lim2], short_name)
-    return None
-
 
 # C:\Users\shaha\Music\Projects & Resources\C U Girl - Steve Lacy\C U Girl Short Loop.wav
-run()
 
 # *****NEXT STEPS*****
-# - I think it makes sense for noteid.py to be where it is,
-#   not restricted in the autorepitch directory. How do I
-#   deal with this in regards to the repository?
+# - relocate the git repository to Audiolab
 #
-# - What should the autorepitch folder structure be? I'm thinking
-#   a package, with a... main/run esque file... inside it? Outside it?
-#   Is run() good where it is, in this file?
+# - autorepitch should be able to take filepaths or arrays
 #
-# - Should I even make it a package? There's just 1 function I want
-#   to be accessible from this directory.
+# - make this folder a package, where only autorepitch() the function can be accessed externally.
 #
-# - What's the proper way I should be organizing the dependencies
-#   between these modules? Relevant if I make a separate main()/run()
+# - open an issue for only mono support (based on the fact that librosa only supports mono)
+#
+# - So... unit tests, huh. Say this folder (soon to be package) is just autorepitch.py & run.py...
+#   I'd think there should also be a unit_test.py & so on.

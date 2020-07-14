@@ -50,14 +50,4 @@ def get_repitched_name(filepath, current, short_name):
 
 # C:\Users\shaha\Music\Projects & Resources\C U Girl - Steve Lacy\C U Girl Short Loop.wav
 
-# *****NEXT STEPS*****
-# - relocate the git repository to Audiolab
-#
-# - autorepitch should be able to take filepaths or arrays
-#
-# - make this folder a package, where only autorepitch() the function can be accessed externally.
-#
-# - open an issue for only mono support (based on the fact that librosa only supports mono)
-#
-# - So... unit tests, huh. Say this folder (soon to be package) is just autorepitch.py & run.py...
-#   I'd think there should also be a unit_test.py & so on.
+

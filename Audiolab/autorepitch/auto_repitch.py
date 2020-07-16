@@ -1,6 +1,6 @@
 import os
 import librosa as lbr
-from noteid import get_valid_name, get_valid_num
+from Audiolab.noteid import get_valid_name, get_valid_num
 
 
 # saves a pitch-shifted version of a sample for each not in the range given by lims
@@ -45,9 +45,3 @@ def get_repitched_name(filepath, current, short_name):
     label = str(current)+'_'+get_valid_name(current)+'_'+short_name+'.wav'
     full_name = os.path.join(filepath, label)
     return full_name
-
-
-
-# C:\Users\shaha\Music\Projects & Resources\C U Girl - Steve Lacy\C U Girl Short Loop.wav
-
-

@@ -1,20 +1,20 @@
 # Audiolab
 A space for the development of audio-related tools.
 
-## Next Steps
-- Seaborn
-- open a github issue for only mono support (based on the fact
-that librosa only supports mono)
-- Consult whether my project structure & import methods are solid
-    - Should the autorepitch (& similar) function need it's own package,
-    if it's gonna have a run & perhaps some type of tests file?
-    - I could put it in a package called `tools` and then put its run code in the
-    `if __name__='__main__'` condition, containing it all to 1 module
+## Proposed Development: `signalfinder`
+#### The idea
+You have an audio file in which you can mark all the points in which a
+certain impulse occurs - perhaps a snare drum hit, an adlib '*yuh*',
+or a synth melody (in which case maybe you also specify the notes).
+With just that information, `signalfinder` is told to find the 'recurring
+signal'. What happens?? This is very related to
+`soundremover` - in both cases, a certain signal needs to be isolated.
+
+#### Related Steps To That End
+- `view_state_space(phase, amplitude, etc.)`
+    - a much dumber `soundremover`
 
 ---
 
 #### Other Tasks
-- `autorepitch` should be able to take filepaths or arrays
-- So... unit tests, huh. Say the *autorepitch* folder (soon to be package)
-is just `autorepitch.py` & `run.py`...   I'd think there should
-also be a `unit_test.py` & so on.
+- Consult whether my project structure & import methods are solid

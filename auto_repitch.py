@@ -2,7 +2,7 @@ import os
 
 import librosa as lbr
 
-from Audiolab.noteid import get_valid_name, get_valid_num
+from noteid import get_valid_name, get_valid_num
 
 
 # saves a pitch-shifted version of a sample for each note in the range given by lims

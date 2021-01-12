@@ -1,5 +1,7 @@
 import os
+
 import librosa as lbr
+
 from Audiolab.noteid import get_valid_name, get_valid_num
 
 
@@ -21,7 +23,7 @@ def autorepitch(filepath, root, lims, short_name):
         current += 1
 
     # print mission success!
-    print('Pitch-shift from '+
+    print('Pitch-shift from ' +
           get_valid_name(min(lims))+'('+str((min(lims)))+')'+' to ' +
           get_valid_name(max(lims))+'('+str((max(lims)))+')' +
           ' stored in '+filepath)

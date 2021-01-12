@@ -1,5 +1,8 @@
 # Custom Files
 Scribbles.py
+auto_repitch.spec
+build
+dist
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

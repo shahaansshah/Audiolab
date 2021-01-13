@@ -1,20 +1,12 @@
 # Audiolab
 A space for the development of audio-related tools.
 
-## Proposed Development: `signalfinder`
-#### The idea
-You have an audio file in which you can mark all the points in which a
-certain impulse occurs - perhaps a snare drum hit, an adlib '*yuh*',
-or a synth melody (in which case maybe you also specify the notes).
-With just that information, `signalfinder` is told to find the 'recurring
-signal'. What happens?? This is very related to
-`soundremover` - in both cases, a certain signal needs to be isolated.
+## autorepitch
+Takes an audio sample and generates pitch-shifted samples
+from that sample, within a range of notes specified by the user.
+It was developed to aid in the process of creating soundfont files
+from an audio sample. Can be used with the GUI or by calling the
+function in the shell.
 
-#### Related Steps To That End
-- `view_state_space(phase, amplitude, etc.)`
-    - a much dumber `soundremover`
-
----
-
-#### Other Tasks
-- Consult whether my project structure & import methods are solid
+Here is a demonstration of the autorepitch GUI:   
+![](autorepitch_demonstration_2.gif)

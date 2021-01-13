@@ -1,6 +1,7 @@
 import os
 
 import librosa as lbr
+import easygui as eg
 
 from noteid import get_valid_name, get_valid_num
 
@@ -22,12 +23,13 @@ def autorepitch(filepath, root, lims, short_name):
         lbr.output.write_wav(new_name, new_wave, sr=sr, norm=False)
         current += 1
 
-    # print mission success!
-    print('Pitch-shift from ' +
-          get_valid_name(min(lims))+'('+str((min(lims)))+')'+' to ' +
-          get_valid_name(max(lims))+'('+str((max(lims)))+')' +
-          ' stored in '+filepath)
-    return None
+    # mission success!
+    returnvals = [filepath, 'Successfully pitch-shifted samples from ' +
+                  get_valid_name(min(lims))+' ('+str((min(lims)))+')'+' to ' +
+                  get_valid_name(max(lims))+' ('+str((max(lims)))+')' +
+                  ' and stored in '+filepath]
+    print(returnvals[1])
+    return returnvals
 
 
 # creates and returns a new directory for the repitch files
@@ -44,14 +46,19 @@ def new_repitch_directory(filepath):
 
 # generates a filepath with note number, name & custom short_name to save pitch-shifted sample under
 def get_repitched_name(filepath, current, short_name):
-    label = str(current)+'_'+get_valid_name(current)+'_'+short_name+'.wav'
+    if short_name == '':
+        label = str(current) + '_' + get_valid_name(current) + '.wav'
+    else:
+        label = str(current)+'_'+get_valid_name(current)+'_'+short_name+'.wav'
     full_name = os.path.join(filepath, label)
     return full_name
 
 
 # executes autorepitch() using user input prompts
 def run():
-    filename = input('Enter filepath: ')
+    print('Please select your audio sample in the file dialog.')
+    filename = eg.fileopenbox('', 'Select Audio Sample')
+    print(filename)
     root = input('Enter root note of sample: ')
     lim1 = input('Enter the first limit of your desired pitch-shift range: ')
     lim2 = input('Enter the second limit of your desired pitch-shift range: ')
@@ -62,5 +69,3 @@ def run():
 
 if __name__ == '__main__':
     run()
-
-

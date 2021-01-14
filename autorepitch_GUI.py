@@ -25,7 +25,7 @@ class GUI:
         # tkinter GUI elements
 
         # root and all-encompassing frame
-        root.title('auto_repitch')
+        root.title('autorepitch')
         frame = tk.Frame(root, padx=5, pady=5)
         frame.pack(padx=10, pady=7)
 

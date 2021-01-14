@@ -18,3 +18,19 @@ soundfont:
 all that's needed)
 - add more print statements so that the program is useable & can
 be tracked/debugged from the console
+- add a progress indicator into `autorepitch` that shows up in
+the GUI - something along the lines of:
+```python
+# check for an optional GUI object - ie. autorepitch(..., self)??
+
+def  autorepitch(..., *args, **kwargs):
+    arglist = []
+    ... # make sure arglist is only 1 long
+    GUI = arglist[0]        
+    # update the info text of the GUI object!
+    if isinstance(GUI, autorepitch_GUI.GUI):  
+        GUI.info = 'stuff'
+        GUI.infostr.set(GUI.info)
+
+# and short_name should be a **kwargs parameter!
+```

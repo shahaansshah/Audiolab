@@ -27,9 +27,8 @@ def autorepitch(filepath, root, lims, short_name):
     # mission success!
     returnvals = [filepath, 'Successfully pitch-shifted samples from ' +
                   get_valid_name(min(lims))+' ('+str((min(lims)))+')'+' to ' +
-                  get_valid_name(max(lims))+' ('+str((max(lims)))+')' +
-                  ' and stored in '+filepath]
-    print(returnvals[1])
+                  get_valid_name(max(lims))+' ('+str((max(lims)))+')']
+    print(returnvals[1] + ' and stored in ' + returnvals[0])
     return returnvals
 
 

@@ -1,67 +1,48 @@
 # *****WHAT IS THIS???*****
 # This module defines the fundamental note object, which is used to represent a musical note in the program. It entails:
-# - a valid name, made of the Western note names and accidentals [C D E F G A B # b] and an octave number (eg. c4, f#5, g#3)
-# - a note number representinng the note's position in the MIDI tuning range 21 (A0) to 128 (G#9)
-# - only notes in the MIDI tuning range are valid, and only notes that can be constructed out of the characters in the 'names' array below are valid
-#   (no half or double accidentals, etc.)
+# - a valid name (the note's identity, always present), made of the Western note names and accidentals [C D E F G A B # b] and an octave number (eg. c4, f#5, g#3).
+#   Names are not limited to the MIDI range (eg. C0 is a valid Note).
+# - a note number representing the note's position in the MIDI tuning range 21 (A0) to 128 (G#9).
+#   Numbers must be in that range; asking a name-built Note outside it for its number raises InvalidMIDINumber.
+# All parsing and conversion lives in pitch.py; Note just holds a value and exposes it.
 
-import re
-from typing import Union
-from config import MIDI_TUNING_RANGE, NOTE_NAMES_VALUES, ACCIDENTALS_VALUES, MIDI_VALID_OCTAVES
+from typing import Optional, Union
+import pitch
 import exceptions as exc
 
 
 class Note:
-    
+
     def __init__(self, value: Union[int, str]):
 
-        self.name = None
-        self.num = None
-        
-        # if integer was passed (as type int or str), check it is in valid MIDI tuning range, assign to self.num
-        if(
+        # The name is a Note's identity, so it is always set, in canonical form.
+        # The MIDI number is optional: a name outside the MIDI range (eg. C0) has none.
+        self._num: Optional[int] = None
+
+        # integer (as type int or decimal str): validate as a MIDI number, derive the name from it
+        if (
             type(value) == int or
             type(value) == str and value.isdecimal()
         ):
-            value = int(value)
-            if value in MIDI_TUNING_RANGE:
-                self.num = value
-            else:
-                raise exc.invalid_Note_number
-            
-        # if non-integer string was passed, check for valid note name, assign to self.name
+            self._num = pitch.parse_num(value)
+            self._name: str = pitch.name_from_num(self._num)
+
+        # any other string: validate as a note name; the number is derived on request
         elif type(value) == str:
+            self._name = pitch.normalise_name(value)
 
-            # 
-            letters = "|".join(re.escape(n) for n in NOTE_NAMES_VALUES)
-            accidentals = "|".join(re.escape(a) for a in ACCIDENTALS_VALUES)
-            octaves = "|".join(str(o) for o in sorted(MIDI_VALID_OCTAVES, reverse=True))
-
-            # 
-            valid_name = re.compile(
-                rf"(?P<letter>{letters})(?P<accidental>{accidentals})?\s*(?P<octave>{octaves})",
-                re.IGNORECASE,
-            )
-
-            # if input value matches the valid_name pattern, normalise to canonical form and assign to self.name
-            match = valid_name.fullmatch(value)
-            if match:
-
-                # normalise to canonical form, eg. "f#  5" style input -> "F#5", "bb3" -> "Bb3"
-                accidental_keys = {a.lower(): a for a in ACCIDENTALS_VALUES}
-                accidental = accidental_keys[match["accidental"].lower()] if match["accidental"] else ""
-
-                # assign to self.name
-                self.name = f"{match['letter'].upper()}{accidental}{match['octave']}"
-            
-            else:
-                raise exc.invalid_Note_name
-
-        # if neither int nor str was passed, raise TypeError
+        # neither int nor str
         else:
-            raise exc.invalid_Note_input
+            raise exc.InvalidNoteInput(value)
 
-        try:
-            print(self.name)
-        except Exception:
-            print(self.num)
+    # A future modality (eg. frequency) adds a branch above that derives the name via a conversion in pitch.py.
+
+    def get_name(self) -> str:
+        """Return the note's canonical name, eg. 'F#5'."""
+        return self._name
+
+    def get_num(self) -> int:
+        """Return the note's MIDI number. Raises InvalidMIDINumber for a valid name outside the MIDI range (eg. C0)."""
+        if self._num is None:
+            self._num = pitch.num_from_name(self._name)
+        return self._num

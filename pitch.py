@@ -78,6 +78,3 @@ def name_from_num(num: Union[int, str]) -> str:
         if value + ACCIDENTALS_VALUES["#"] == pitch_class:
             return format_name(letter, "#", octave)
     raise RuntimeError(f"NOTE_NAMES_VALUES in config.py cannot express pitch class {pitch_class}")
-
-
-print(name_from_num(128))  # Example usage, should print "C4"

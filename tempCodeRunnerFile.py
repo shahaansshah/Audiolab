@@ -1,0 +1,1 @@
+max(MIDI_TUNING_RANGE) - C1_OFFSET) + 1
